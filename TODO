@@ -1,0 +1,49 @@
+- localization
+    - backend
+    - frontend
+- auth
+    - local
+    - sosmed
+- master data
+    - user
+    - program category
+    - program
+        - sync valas
+    - pages
+    - post
+    - slider
+- trx
+    - donation
+    - invoice
+    - nota
+- payment gateway
+    - callback url
+- report
+    - invoice
+    - nota
+
+- frontend
+    - topbar
+        - lang selection
+        - currency selection
+        - zakat calculator
+    - home
+        - slider
+        - quick donation
+        - about
+        - programs
+        - summary
+        - footer
+            - sosmed
+
+    - program
+        - index (list program, description, link donation)
+        - show
+            - detail program
+            - image
+            - donate form
+
+    - page
+    - posts
+        - index
+        - show

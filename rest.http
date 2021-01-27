@@ -1,0 +1,14 @@
+GET http://localhost:8000/api/lang?locale=id HTTP/1.1
+
+###
+GET http://localhost:8000/api/lang?locale=en HTTP/1.1
+
+###
+GET http://localhost:8000/api/lang?locale=ar HTTP/1.1
+
+###
+GET http://localhost:8000/api/lang?locale=fr HTTP/1.1
+
+###
+GET http://localhost:8000/api/user HTTP/1.1
+Accept: application/application/json
