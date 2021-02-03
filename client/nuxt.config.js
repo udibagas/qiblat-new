@@ -118,7 +118,7 @@ export default {
         tokenRequired: false
       }
     },
-    localStorage: false
+    // localStorage: false
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
