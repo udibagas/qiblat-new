@@ -1,7 +1,7 @@
 
 
 export default {
-  loading: "~/components/Loading.vue",
+  // loading: "~/components/Loading.vue",
   /*
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
@@ -23,7 +23,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "Responsive Bootstrap 4 Admin Dashboard"
+        content: "Yayasan Qibat"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
@@ -34,22 +34,26 @@ export default {
   /*
    ** Global CSS
    */
-  css: ["~/assets/scss/app.scss"],
+  css: [
+    // 'element-ui/lib/theme-chalk/index.css',
+    // "~/assets/scss/app.scss"
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [
-    '~/plugins/index.js',
-    "~/plugins/simplebar.js",
-    "~/plugins/vue-click-outside.js",
-    "~/plugins/vue-apexcharts.js",
-    "~/plugins/vuelidate.js",
-    "~/plugins/vue-slidebar.js",
-    "~/plugins/vue-lightbox.js",
-    "~/plugins/vue-chartist.js",
-    "~/plugins/vue-mask.js",
-    // "~/plugins/vue-googlemap.js"
+    // '~/plugins/index.js',
+    // "~/plugins/simplebar.js",
+    // "~/plugins/vue-click-outside.js",
+    // "~/plugins/vue-apexcharts.js",
+    // "~/plugins/vuelidate.js",
+    // "~/plugins/vue-slidebar.js",
+    // "~/plugins/vue-lightbox.js",
+    // "~/plugins/vue-chartist.js",
+    // "~/plugins/vue-mask.js",
+    // "~/plugins/vue-googlemap.js",
+    // '@/plugins/element-ui'
   ],
   /*
    ** Auto import components
@@ -67,10 +71,7 @@ export default {
     'nuxt-i18n',
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    // Doc: https://bootstrap-vue.js.org
-    "bootstrap-vue/nuxt",
-    // Doc: https://github.com/nuxt/content
-    "@nuxt/content"
+    // "@nuxt/content"
   ],
 
   axios: {
@@ -84,22 +85,22 @@ export default {
         code: 'en',
         name: 'English',
         file: 'en.js',
-        flag: "~/assets/images/flags/us.png"
+        flag: "/images/flags/gb.png"
       }, {
         code: 'fr',
         name: 'Français',
         file: 'fr.js',
-        flag: "~/assets/images/flags/fr.png"
+        flag: "/images/flags/fr.png"
       }, {
         code: 'id',
         name: 'Bahasa Indonesia',
         file: 'id.js',
-        flag: "~/assets/images/flags/id.png"
+        flag: "/images/flags/id.png"
       }, {
         code: 'ar',
         name: 'Arabic',
         file: 'ar.js',
-        flag: "~/assets/images/flags/ar.png"
+        flag: "/images/flags/sa.png"
       }
     ],
     // seo: true,
@@ -117,37 +118,37 @@ export default {
   },
 
   auth: {
-    // redirect: {
-    //   login: '/login',
-    //   logout: '/',
-    //   calback: '/login',
-    //   home: '/'
-    // },
+    redirect: {
+      login: '/login',
+      logout: '/',
+      calback: '/login',
+      home: '/'
+    },
     strategies: {
       laravelSanctum: {
         provider: 'laravel/sanctum',
         url: process.env.API_URL || 'http://localhost:8000',
-        // endpoints: {
-        //   login: {
-        //     url: '/api/login',
-        //     method: 'post',
-        //     propertyName: false
-        //   },
-        //   logout: {
-        //     url: '/api/logout',
-        //     method: 'post'
-        //   },
-        //   user: {
-        //     url: '/api/me',
-        //     method: 'get',
-        //     propertyName: false
-        //   }
-        // },
-        // tokenType: false,
-        // tokenRequired: false
+        endpoints: {
+          login: {
+            url: '/api/login',
+            method: 'post',
+            propertyName: false
+          },
+          logout: {
+            url: '/api/logout',
+            method: 'post'
+          },
+          user: {
+            url: '/api/me',
+            method: 'get',
+            propertyName: false
+          }
+        },
+        tokenType: false,
+        tokenRequired: false
       }
     },
-    // localStorage: false
+    localStorage: false
   },
 
   /*
@@ -159,7 +160,9 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    // transpile: [/^element-ui/],
+  },
   env: {
   }
 };

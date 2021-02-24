@@ -1,85 +1,78 @@
 <script>
-import {
-    authFackMethods
-} from "~/store/helpers";
-/**
- * Topbar component
- */
+import { authFackMethods } from "~/store/helpers";
+
 export default {
-    data() {
-        return {
-          languages: this.$i18n.locales.map(({flag, code : language, name: title }) => {
-              return { flag: require(flag), language, title }
-            }),
-            current_language: this.$i18n.locale,
-            text: null,
-            flag: null,
-            value: null,
-        };
+  data() {
+    return {
+      current_language: this.$i18n.locale,
+      text: null,
+      flag: null,
+      value: null,
+    };
+  },
+
+  computed: {
+    languages() {
+      return this.$i18n.locales.map(({flag, code: language, name: title}) => {
+        return {flag, language, title};
+      })
+    }
+  },
+
+  mounted() {
+    this.value = this.languages.find((x) => x.language === this.$i18n.locale);
+    this.text = this.value.title;
+    this.flag = this.value.flag;
+  },
+
+  methods: {
+    ...authFackMethods,
+
+    toggleMenu() {
+        this.$parent.toggleMenu();
     },
-    mounted() {
-        this.value = this.languages.find((x) => x.language === this.$i18n.locale);
-        this.text = this.value.title;
-        this.flag = this.value.flag;
-    },
-    methods: {
-        ...authFackMethods,
-        /**
-         * Toggle menu
-         */
-        toggleMenu() {
-            this.$parent.toggleMenu();
-        },
-        initFullScreen() {
-            document.body.classList.toggle("fullscreen-enable");
-            if (
-                !document.fullscreenElement &&
-                /* alternative standard method */
-                !document.mozFullScreenElement &&
-                !document.webkitFullscreenElement
-            ) {
-                // current working methods
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen(
-                        Element.ALLOW_KEYBOARD_INPUT
-                    );
-                }
-            } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
+
+    initFullScreen() {
+        document.body.classList.toggle("fullscreen-enable");
+        if (
+            !document.fullscreenElement &&
+            /* alternative standard method */
+            !document.mozFullScreenElement &&
+            !document.webkitFullscreenElement
+        ) {
+            // current working methods
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen(
+                    Element.ALLOW_KEYBOARD_INPUT
+                );
             }
-        },
-        /**
-         * Toggle rightsidebar
-         */
-        toggleRightSidebar() {
-            this.$parent.toggleRightSidebar();
-        },
-        /**
-         * Set languages
-         */
-        setLanguage(locale, country, flag) {
-            this.$i18n.locale = locale;
-            this.current_language = locale;
-            this.text = country;
-            this.flag = flag;
-        },
-        logoutUser() {
-            this.logout();
-            this.$router.push({
-                path: "/account/login",
-            });
-        },
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+        }
     },
+
+    setLanguage(locale, country, flag) {
+        this.$i18n.locale = locale;
+        this.current_language = locale;
+        this.text = country;
+        this.flag = flag;
+    },
+
+    logoutUser() {
+      this.$auth.logout();
+      this.$router.push({ path: "/login", });
+    },
+  },
 };
 </script>
 
@@ -123,7 +116,7 @@ export default {
 						<input
 							type="text"
 							class="form-control"
-							:placeholder="$t('navbar.search.text')"
+							:placeholder="$t('Search')"
 						/>
 						<span class="uil-search"></span>
 					</div>
@@ -162,7 +155,7 @@ export default {
 
 				<b-dropdown variant="white" right toggle-class="header-item">
 					<template v-slot:button-content>
-						<img class :src="flag" alt="Header Language" height="16" />
+						<img class="border" :src="flag" alt="Header Language" height="16" />
 						{{ text }}
 					</template>
 					<b-dropdown-item
@@ -176,75 +169,11 @@ export default {
 						<img
 							:src="`${entry.flag}`"
 							alt="user-image"
-							class="mr-1"
+							class="mr-1 border"
 							height="12"
 						/>
 						<span class="align-middle">{{ entry.title }}</span>
 					</b-dropdown-item>
-				</b-dropdown>
-
-				<b-dropdown
-					variant="white"
-					class="d-none d-lg-inline-block ml-1"
-					toggle-class="header-item noti-icon"
-					right
-					menu-class="dropdown-menu-lg"
-				>
-					<template v-slot:button-content>
-						<i class="uil-apps"></i>
-					</template>
-					<div class="px-lg-2">
-						<div class="row no-gutters">
-							<div class="col">
-								<a class="dropdown-icon-item" href="#">
-									<img src="~/assets/images/brands/github.png" alt="Github" />
-									<span>{{ $t("navbar.dropdown.site.list.github") }}</span>
-								</a>
-							</div>
-							<div class="col">
-								<a class="dropdown-icon-item" href="#">
-									<img
-										src="~/assets/images/brands/bitbucket.png"
-										alt="bitbucket"
-									/>
-									<span>{{ $t("navbar.dropdown.site.list.bitbucket") }}</span>
-								</a>
-							</div>
-							<div class="col">
-								<a class="dropdown-icon-item" href="#">
-									<img
-										src="~/assets/images/brands/dribbble.png"
-										alt="dribbble"
-									/>
-									<span>{{ $t("navbar.dropdown.site.list.dribbble") }}</span>
-								</a>
-							</div>
-						</div>
-
-						<div class="row no-gutters">
-							<div class="col">
-								<a class="dropdown-icon-item" href="#">
-									<img src="~/assets/images/brands/dropbox.png" alt="dropbox" />
-									<span>{{ $t("navbar.dropdown.site.list.dropbox") }}</span>
-								</a>
-							</div>
-							<div class="col">
-								<a class="dropdown-icon-item" href="#">
-									<img
-										src="~/assets/images/brands/mail_chimp.png"
-										alt="mail_chimp"
-									/>
-									<span>{{ $t("navbar.dropdown.site.list.mailchimp") }}</span>
-								</a>
-							</div>
-							<div class="col">
-								<a class="dropdown-icon-item" href="#">
-									<img src="~/assets/images/brands/slack.png" alt="slack" />
-									<span>{{ $t("navbar.dropdown.site.list.slack") }}</span>
-								</a>
-							</div>
-						</div>
-					</div>
 				</b-dropdown>
 
 				<div class="dropdown d-none d-lg-inline-block ml-1">
@@ -403,51 +332,37 @@ export default {
 					<template v-slot:button-content>
 						<img
 							class="rounded-circle header-profile-user"
-							src="~/assets/images/users/avatar-4.jpg"
-							alt="Header Avatar"
+							src="~/assets/images/users/avatar-3.jpg"
+							:alt="$auth.user.name"
 						/>
 						<span
 							class="d-none d-xl-inline-block ml-1 font-weight-medium font-size-15"
-							>{{ $t("navbar.dropdown.marcus.text") }}</span
+							>{{ $auth.user.name }}</span
 						>
 						<i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
 					</template>
 
 					<!-- item-->
-					<a class="dropdown-item" href="#">
+					<nuxt-link class="dropdown-item" to="/profile">
 						<i
 							class="uil uil-user-circle font-size-18 align-middle text-muted mr-1"
 						></i>
-						<span class="align-middle">{{
-							$t("navbar.dropdown.marcus.list.profile")
-						}}</span>
-					</a>
+						<span class="align-middle">{{ $t("Profile") }}</span>
+					</nuxt-link>
 					<a class="dropdown-item" href="#">
 						<i
 							class="uil uil-wallet font-size-18 align-middle mr-1 text-muted"
 						></i>
-						<span class="align-middle">{{
-							$t("navbar.dropdown.marcus.list.mywallet")
-						}}</span>
+						<span class="align-middle">{{ $t("My Task") }}</span>
+						<span class="badge badge-soft-success badge-pill mt-1 ml-2"
+							>03</span
+						>
 					</a>
 					<a class="dropdown-item d-block" href="#">
 						<i
 							class="uil uil-cog font-size-18 align-middle mr-1 text-muted"
 						></i>
-						<span class="align-middle">{{
-							$t("navbar.dropdown.marcus.list.settings")
-						}}</span>
-						<span class="badge badge-soft-success badge-pill mt-1 ml-2"
-							>03</span
-						>
-					</a>
-					<a class="dropdown-item" href="#">
-						<i
-							class="uil uil-lock-alt font-size-18 align-middle mr-1 text-muted"
-						></i>
-						<span class="align-middle">{{
-							$t("navbar.dropdown.marcus.list.lockscreen")
-						}}</span>
+						<span class="align-middle">{{ $t("Setting") }}</span>
 					</a>
 					<a
 						class="dropdown-item"
@@ -457,21 +372,9 @@ export default {
 						<i
 							class="uil uil-sign-out-alt font-size-18 align-middle mr-1 text-muted"
 						></i>
-						<span class="align-middle">{{
-							$t("navbar.dropdown.marcus.list.logout")
-						}}</span>
+						<span class="align-middle">{{ $t("Logout") }}</span>
 					</a>
 				</b-dropdown>
-
-				<div class="dropdown d-inline-block">
-					<button
-						type="button"
-						class="btn header-item noti-icon right-bar-toggle toggle-right"
-						@click="toggleRightSidebar"
-					>
-						<i class="uil-cog toggle-right"></i>
-					</button>
-				</div>
 			</div>
 		</div>
 	</header>

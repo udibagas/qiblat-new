@@ -41,7 +41,12 @@ export default {
         if (this.$v.$invalid) {
           return;
         } else {
-          // TODO: login
+          this.$auth.loginWith('laravelSanctum', {
+            data: {
+              email: this.email,
+              password: this.password,
+            }
+          })
         }
       },
     },
