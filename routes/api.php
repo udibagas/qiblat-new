@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComponentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -24,9 +25,13 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::resource('user', UserController::class);
-    Route::resource('lang', LangController::class)->except(['index']);
     Route::get('menu', [MenuController::class, 'index']);
+
+    Route::apiResources([
+        'component' => ComponentController::class,
+        'user' => UserController::class,
+        'lang' => LangController::class
+    ]);
 });
 
 Route::get('lang', function (Request $request) {

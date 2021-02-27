@@ -3,17 +3,19 @@
 		<Hero />
 
 		<main id="main">
-			<Features />
+			<!-- <Features /> -->
 			<About />
 			<Services />
 			<Cta />
-			<Skills />
+			<!-- <Skills /> -->
 			<Counter />
 			<Portfolio />
-			<Clients />
-			<Testimonials />
-			<Team />
+			<!-- <Clients /> -->
+			<!-- <Testimonials /> -->
+			<!-- <Team /> -->
+			<News />
 			<Contact />
+			<Map />
 		</main>
 	</div>
 </template>

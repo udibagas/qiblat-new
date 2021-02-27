@@ -1,7 +1,7 @@
 
 
 export default {
-  // loading: "~/components/Loading.vue",
+  loading: "~/components/Loading.vue",
   /*
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
@@ -35,7 +35,7 @@ export default {
    ** Global CSS
    */
   css: [
-    // 'element-ui/lib/theme-chalk/index.css',
+    'element-ui/lib/theme-chalk/index.css',
     // "~/assets/scss/app.scss"
   ],
   /*
@@ -49,11 +49,12 @@ export default {
     // "~/plugins/vue-apexcharts.js",
     // "~/plugins/vuelidate.js",
     // "~/plugins/vue-slidebar.js",
-    // "~/plugins/vue-lightbox.js",
+    "~/plugins/vue-lightbox.js",
     // "~/plugins/vue-chartist.js",
     // "~/plugins/vue-mask.js",
     // "~/plugins/vue-googlemap.js",
-    // '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/carousel',
   ],
   /*
    ** Auto import components
@@ -161,7 +162,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {
-    // transpile: [/^element-ui/],
+    transpile: [/^element-ui/],
   },
   env: {
   }

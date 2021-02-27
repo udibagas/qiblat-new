@@ -2,16 +2,16 @@
 	<section id="portfolio" class="section-bg">
 		<div class="container" data-aos="fade-up">
 			<header class="section-header">
-				<h3 class="section-title">Our Portfolio</h3>
+				<h3 class="section-title">KEGIATAN KAMI</h3>
 			</header>
 
 			<div class="row" data-aos="fade-up" data-aos-delay="100">
 				<div class="col-lg-12">
 					<ul id="portfolio-flters">
-						<li data-filter="*" class="filter-active">All</li>
-						<li data-filter=".filter-app">App</li>
-						<li data-filter=".filter-card">Card</li>
-						<li data-filter=".filter-web">Web</li>
+						<li data-filter="*" class="filter-active">Semua</li>
+						<li data-filter=".filter-app">Pembangunan Masjid</li>
+						<li data-filter=".filter-card">Penggalian Sumur</li>
+						<li data-filter=".filter-web">Pengiriman Da'i</li>
 					</ul>
 				</div>
 			</div>
@@ -296,27 +296,12 @@
 </template>
 
 <script>
-import Swiper from 'swiper'
 import GLightbox from 'glightbox';
 
 export default {
   mounted() {
     const portfolioLightbox = GLightbox({
       selector: '.portfolio-lightbox'
-    });
-
-    new Swiper('.portfolio-details-slider', {
-      speed: 400,
-      loop: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        type: 'bullets',
-        clickable: true
-      }
     });
   }
 }

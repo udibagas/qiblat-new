@@ -14,6 +14,7 @@
 
 <script>
 import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default {
   head() {
@@ -32,7 +33,6 @@ export default {
         { rel: 'stylesheet', href: '/assets/vendor/bootstrap/css/bootstrap.min.css'},
         { rel: 'stylesheet', href: '/assets/vendor/bootstrap-icons/bootstrap-icons.css'},
         { rel: 'stylesheet', href: '/assets/vendor/glightbox/css/glightbox.min.css'},
-        { rel: 'stylesheet', href: '/assets/vendor/swiper/swiper-bundle.min.css'},
         { rel: 'stylesheet', href: '/assets/css/style.css'},
       ],
       script: [
@@ -42,7 +42,6 @@ export default {
         { src: '/assets/vendor/isotope-layout/isotope.pkgd.min.js', body: true },
         { src: '/assets/vendor/php-email-form/validate.js', body: true },
         { src: '/assets/vendor/purecounter/purecounter.js', body: true },
-        // { src: '/assets/vendor/swiper/swiper-bundle.min.js', body: true },
         { src: '/assets/vendor/waypoints/noframework.waypoints.js', body: true },
         { src: '/assets/js/main.js', body: true },
       ]
