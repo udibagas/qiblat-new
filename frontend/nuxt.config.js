@@ -26,7 +26,12 @@ export default {
         content: "Yayasan Qibat"
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: 'stylesheet', href: '/assets/vendor/bootstrap/css/bootstrap.min.css'},
+      { rel: 'stylesheet', href: '/assets/vendor/bootstrap-icons/bootstrap-icons.css'},
+      { rel: 'stylesheet', href: '/assets/vendor/glightbox/css/glightbox.min.css'},
+    ]
   },
   router: {
     // linkExactActiveClass: 'active'
@@ -36,7 +41,7 @@ export default {
    */
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    // "~/assets/scss/app.scss"
+    "~/assets/scss/app.scss"
   ],
   /*
    ** Plugins to load before mounting the App

@@ -9,11 +9,12 @@
 				</p>
 			</header>
 
-			<div class="d-flex justify-content-between counters">
+			<div class="d-flex flex-wrap justify-content-center counters">
 				<div
 					class="text-center"
 					v-for="counter in counters"
 					:key="counter.title"
+					style="min-width: 300px"
 				>
 					<div
 						class="mb-3"

@@ -9,12 +9,24 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        return Auth::attempt($request->only(['email', 'password']));
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $auth = Auth::attempt(['email' => $request->email, 'password' => $request->password], true);
+
+        if (!$auth) {
+            return response(['message' => 'Invalid email or password'], 401);
+        }
+
+        return response('', 204);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        return Auth::logout();
+        $request->user()->currentAccessToken()->delete();
+        return response('', 204);
     }
 
     public function me(Request $request)

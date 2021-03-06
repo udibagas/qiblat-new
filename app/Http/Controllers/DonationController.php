@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ComponentRequest;
-use App\Models\Component;
+use App\Http\Requests\DonationRequest;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 
-class ComponentController extends Controller
+class DonationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class ComponentController extends Controller
      */
     public function index(Request $request)
     {
-        return Component::when($request->keyword, function ($q) use ($request) {
-            $q->where('name', "LIKE", "%{$request->keyword}%");
+        return Donation::when($request->keyword, function($q) use ($request) {
+            $q->where('field', "LIKE", "%{$request->keyword}%");
         })
             ->orderBy($request->sortField ?: 'field', $request->sortDirection ?: 'asc')
             ->paginate($request->pageSize);
@@ -28,51 +28,45 @@ class ComponentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ComponentRequest $request)
+    public function store(DonationRequest $request)
     {
-        $component = Component::create($request->all());
+        Donation::create($request->all());
         return ['message' => __('Data has been saved')];
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Component  $component
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function show(Component $component)
+    public function show(Donation $donation)
     {
-        return $component;
-    }
-
-    public function getByName(string $name)
-    {
-        $component = Component::where('name', $name)->first();
-        return $component ?: new Component(['name' => $name]);
+        return $donation;
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Component  $component
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function update(ComponentRequest $request, Component $component)
+    public function update(DonationRequest $request, Donation $donation)
     {
-        $component->update($request->all());
+        $donation->update($request->all());
         return ['message' => __('Data has been updated')];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Component  $component
+     * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Component $component)
+    public function destroy(Donation $donation)
     {
-        $component->delete();
+        $donation->delete();
         return ['message' => __('Data has been deleted')];
     }
 }

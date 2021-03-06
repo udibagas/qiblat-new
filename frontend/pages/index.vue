@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Hero />
+		<Hero1 />
 
 		<main id="main">
 			<!-- <Features /> -->

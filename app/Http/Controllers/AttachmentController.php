@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
-    public function store(Request $request)
+    public function upload(Request $request)
     {
         $request->validate([
             'file' => 'file|required|mimes:png,jpg,jpeg,pdf'
@@ -19,7 +19,8 @@ class AttachmentController extends Controller
         return [
             'name' => $file->getClientOriginalName(),
             'path' => $path,
-            'url' => url(Storage::url($path))
+            'url' => url(Storage::url($path)),
+            'data' => $request->data
         ];
     }
 }
