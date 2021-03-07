@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PaymentGatewayController;
 use App\Models\Lang;
 
 /*
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResources([
         'component' => ComponentController::class,
         'donation' => DonationController::class,
+        'paymentGateway' => PaymentGatewayController::class,
         'user' => UserController::class,
         'lang' => LangController::class
     ]);
@@ -42,6 +44,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 });
 
 
-Route::get('lang', function (Request $request) {
+Route::get('locale', function (Request $request) {
     return Lang::where('locale', $request->locale)->pluck('text', 'key');
 });

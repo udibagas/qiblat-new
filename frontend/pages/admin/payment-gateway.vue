@@ -2,7 +2,7 @@
 	<div>
 		<div class="d-flex justify-content-between mb-3">
 			<div>
-				<el-page-header @back="$router.go(-1)" content="LANGUAGE">
+				<el-page-header @back="$router.go(-1)" content="PAYMENT GATEWAY">
 				</el-page-header>
 			</div>
 
@@ -13,33 +13,8 @@
 						size="small"
 						type="success"
 						@click="openForm({})"
-						>NEW TRANSLATION</el-button
+						>NEW PAYMENT GATEWAY</el-button
 					>
-				</el-form-item>
-				<el-form-item class="mb-0">
-					<el-select
-						v-model="filters.locale"
-						clearable
-						placeholder="Locale"
-						size="small"
-						style="width: 170px"
-						@change="getData"
-					>
-						<el-option
-							v-for="locale in $i18n.locales"
-							:key="locale.code"
-							:value="locale.code"
-							:label="locale.name"
-						>
-							<img
-								:src="locale.flag"
-								alt=""
-								class="border mr-3"
-								style="height: 15px; width: 20px"
-							/>
-							{{ locale.name }}
-						</el-option>
-					</el-select>
 				</el-form-item>
 				<el-form-item class="mb-0">
 					<el-input
@@ -71,22 +46,12 @@
 				type="index"
 				:index="pagination.from"
 			></el-table-column>
-
-			<el-table-column label="Locale" prop="locale" width="180">
-				<template slot-scope="scope">
-					<img
-						:src="$i18n.locales.find((l) => l.code == scope.row.locale).flag"
-						alt=""
-						class="border mr-3"
-						style="height: 15px; width: 20px"
-					/>
-					{{ $i18n.locales.find((l) => l.code == scope.row.locale).name }}
-				</template>
-			</el-table-column>
-
-			<el-table-column label="Key" prop="key"></el-table-column>
-			<el-table-column label="Text" prop="text"></el-table-column>
-
+			<el-table-column
+				label="Provider"
+				prop="provider"
+				width="200"
+			></el-table-column>
+			<el-table-column label="API Key" prop="api_key"></el-table-column>
 			<el-table-column
 				align="center"
 				header-align="center"
@@ -144,55 +109,23 @@
 			:total="pagination.total"
 		></el-pagination>
 
-		<el-dialog title="TRANSLATION" :visible.sync="showForm" width="600px">
-			<el-form label-position="left" label-width="100px">
-				<el-form-item label="Locale" :class="{ 'is-error': errors.locale }">
-					<el-select
-						v-model="filters.locale"
-						clearable
-						placeholder="Locale"
-						style="width: 100%"
-						@change="getData"
-					>
-						<el-option
-							v-for="locale in $i18n.locales"
-							:key="locale.code"
-							:value="locale.code"
-							:label="locale.name"
-						>
-							<img
-								:src="locale.flag"
-								alt=""
-								class="border mr-3"
-								style="height: 15px; width: 20px"
-							/>
-							{{ locale.name }}
-						</el-option>
-					</el-select>
-					<div class="el-form-item__error" v-if="errors.locale">
-						{{ errors.locale.join(",") }}
+		<el-dialog title="PAYMENT GATEWAY" :visible.sync="showForm" width="600px">
+			<el-form label-position="left" label-width="120px">
+				<el-form-item label="Provider" :class="{ 'is-error': errors.provider }">
+					<el-input v-model="form.provider" placeholder="Provider"></el-input>
+					<div class="el-form-item__error" v-if="errors.provider">
+						{{ errors.provider.join(",") }}
 					</div>
 				</el-form-item>
 
-				<el-form-item label="Key" :class="{ 'is-error': errors.key }">
+				<el-form-item label="API Key" :class="{ 'is-error': errors.api_key }">
 					<el-input
 						type="textarea"
-						v-model="form.key"
-						placeholder="Key"
+						v-model="form.api_key"
+						placeholder="API Key"
 					></el-input>
-					<div class="el-form-item__error" v-if="errors.key">
-						{{ errors.key.join(",") }}
-					</div>
-				</el-form-item>
-
-				<el-form-item label="Text" :class="{ 'is-error': errors.text }">
-					<el-input
-						type="textarea"
-						v-model="form.text"
-						placeholder="Text"
-					></el-input>
-					<div class="el-form-item__error" v-if="errors.text">
-						{{ errors.text.join(",") }}
+					<div class="el-form-item__error" v-if="errors.api_key">
+						{{ errors.api_key.join(",") }}
 					</div>
 				</el-form-item>
 			</el-form>
@@ -219,7 +152,7 @@ export default {
 
 	data: () => {
 		return {
-			url: "/api/lang"
+			url: "/api/paymentGateway"
 		};
 	}
 };

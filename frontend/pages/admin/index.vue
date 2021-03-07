@@ -4,7 +4,7 @@
 			<div class="col">
 				<el-card>
 					<div class="text-muted">Donation Today</div>
-					<h1 class="text-success">Rp. 4.000.000,-</h1>
+					<h1 class="text-warning">Rp. 4.000.000,-</h1>
 				</el-card>
 			</div>
 			<div class="col">
@@ -19,14 +19,21 @@
 					<h1 class="text-danger">Rp. 4.000.000,-</h1>
 				</el-card>
 			</div>
+			<div class="col">
+				<el-card>
+					<div class="text-muted">Settled Donation</div>
+					<h1 class="text-success">Rp. 4.000.000,-</h1>
+				</el-card>
+			</div>
 		</div>
 
 		<div class="row mt-4">
-			<div class="col">
+			<div class="col-6">
 				<LatestDonation />
 			</div>
-			<div class="col">
-				<LatestVisit />
+			<div class="col-6">
+				<LatestVisit class="mb-4" />
+				<VisitorStatistic />
 			</div>
 		</div>
 	</div>

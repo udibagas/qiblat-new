@@ -57,7 +57,7 @@ export default {
       this.$axios({ method, url, data }).then(res => {
         this.$message({
           message: res.data.message,
-          type: 'info'
+          type: 'success'
         });
 
         this.closeForm();
@@ -77,12 +77,12 @@ export default {
     deleteData(id) {
       this.$confirm(this.$t('Confirm'), this.$t('Are you sure?'), { type: 'warning' }).then(() => {
         this.loading = true;
-        this.$axios.delete(`${this.url}/${id}`).then(r => {
+        this.$axios.$delete(`${this.url}/${id}`).then(r => {
           this.$message({
-            message: r.data.message,
-            type: 'info'
+            message: r.message,
+            type: 'success'
           })
-          this.fetchData()
+          this.getData()
         }).catch(e => {
           this.$message({
             message: e.response.data.message,
@@ -92,7 +92,7 @@ export default {
       }).catch(e => console.log(e))
     },
 
-    editData(data) {
+    openForm(data) {
       this.form = JSON.parse(JSON.stringify(data));
       this.showForm = true;
     },

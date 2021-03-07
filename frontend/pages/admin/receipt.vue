@@ -2,8 +2,7 @@
 	<div>
 		<div class="d-flex justify-content-between mb-3">
 			<div>
-				<el-page-header @back="$router.go(-1)" content="PROGRAM">
-				</el-page-header>
+				<el-page-header @back="$router.go(-1)" content="USER"> </el-page-header>
 			</div>
 
 			<el-form inline @submit.native.prevent>

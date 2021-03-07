@@ -17,12 +17,13 @@ class LangController extends Controller
     {
         return Lang::when($request->keyword, function ($q) use ($request) {
             $q->where(function ($q) use ($request) {
-                $q->where('key', "%{$request->keyword}%")
-                    ->orWHere('text', "%{$request->keyword}%");
+                $q->where('key', "LIKE", "%{$request->keyword}%")
+                    ->orWHere('text', "LIKE", "%{$request->keyword}%");
             });
         })->when($request->locale, function ($q) use ($request) {
             $q->where('locale', $request->locale);
-        })->orderBy($request->orderField ?: 'key', $request->orderDirection ?: 'asc')->get();
+        })->orderBy($request->orderField ?: 'key', $request->orderDirection ?: 'asc')
+            ->paginate($request->per_page);
     }
 
     /**

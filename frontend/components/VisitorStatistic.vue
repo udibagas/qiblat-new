@@ -1,13 +1,16 @@
 <template>
 	<el-card
-		header="Latest Visit"
-		style="height: 335px"
+		header="Visitor Statistic"
+		style="height: 340px"
 		:body-style="{ padding: '0' }"
 	>
 		<el-table :data="visitors">
-			<el-table-column label="Time"></el-table-column>
-			<el-table-column label="IP Address"></el-table-column>
-			<el-table-column label="URL"></el-table-column>
+			<el-table-column label="Country"></el-table-column>
+			<el-table-column
+				label="Visitor"
+				header-align="right"
+				align="right"
+			></el-table-column>
 		</el-table>
 	</el-card>
 </template>
