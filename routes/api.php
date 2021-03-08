@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PaymentGatewayController;
+use App\Http\Controllers\ReceiptController;
 use App\Models\Lang;
 
 /*
@@ -36,6 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         'component' => ComponentController::class,
         'donation' => DonationController::class,
         'paymentGateway' => PaymentGatewayController::class,
+        'receipt' => ReceiptController::class,
         'user' => UserController::class,
         'lang' => LangController::class
     ]);

@@ -17,11 +17,16 @@ class Component extends Model
         'active'
     ];
 
-    protected $with = ['attachments', 'items'];
+    protected $with = ['attachments', 'items', 'translations'];
 
     public function attachments()
     {
         return $this->morphMany(Attachment::class, 'attachable');
+    }
+
+    public function translations()
+    {
+        return $this->morphMany(Translation::class, 'translatable');
     }
 
     public function items()

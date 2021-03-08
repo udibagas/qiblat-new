@@ -1,7 +1,8 @@
 export default {
   data() {
     return {
-      errors: {}
+      errors: {},
+      loading: false
     }
   },
 
@@ -33,15 +34,20 @@ export default {
     },
 
     getData() {
+      this.loading = true;
       this.$axios.$get(`/api/component/${this.component.name}`).then(response => {
         this.component = response;
+
+        if (this.component.name == 'Contact') {
+          this.body = JSON.parse(response.body);
+        }
       }).catch(e => {
         this.$message({
           message: e.response.data.message,
           type: 'error',
           showClose: true
         });
-      });
+      }).finally(() => this.loading = false)
     }
   },
 
