@@ -13,7 +13,35 @@
 			</a>
 			<h5 style="line-height: 60px" class="text-white">ADMIN PANEL</h5>
 		</div>
-		<div style="line-height: 60px">
+
+		<div class="d-flex justifi-content-between" style="line-height: 60px">
+			<el-dropdown @command="switchLanguage" style="margin-right: 30px">
+				<span class="el-dropdown-link text-white">
+					<img
+						:src="activeLocale.flag"
+						alt=""
+						class="border mr-1"
+						style="height: 15px; width: 20px"
+					/>
+					{{ activeLocale.name }}
+				</span>
+				<el-dropdown-menu slot="dropdown">
+					<el-dropdown-item
+						v-for="l in $i18n.locales"
+						:key="l.code"
+						:command="l.code"
+					>
+						<img
+							:src="l.flag"
+							alt=""
+							class="border mr-1"
+							style="height: 15px; width: 20px"
+						/>
+						{{ l.name }}
+					</el-dropdown-item>
+				</el-dropdown-menu>
+			</el-dropdown>
+
 			<el-dropdown @command="handleCommand">
 				<span class="el-dropdown-link">
 					<el-avatar
@@ -34,10 +62,28 @@
 <script>
 export default {
 	props: ["collapse"],
+
+	computed: {
+		activeLocale() {
+			return this.$i18n.locales.find(l => l.code == this.$i18n.locale);
+		}
+	},
+
 	methods: {
 		handleCommand(command) {
 			console.log(command);
+			if (command == "logout") {
+				this.$auth.logout().then(() => this.$router.push("/login"));
+			}
+		},
+
+		switchLanguage(locale) {
+			this.$i18n.setLocale(locale);
+			this.$i18n.locale = locale;
 		}
 	}
 };
 </script>
+
+<style scoped>
+</style>

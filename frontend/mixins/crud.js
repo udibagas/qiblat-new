@@ -16,8 +16,12 @@ export default {
       sortDirection: 'asc',
       errors: {},
       form: {},
+      attachments: [],
+      attachment: {},
       showForm: false,
-      loading: false
+      loading: false,
+      uploadProgress: 0,
+			showUploadProgress: false,
     }
   },
 
@@ -26,11 +30,13 @@ export default {
     getData() {
       const params = {
         ...this.filters,
+        ...this.pagination,
         page: this.pagination.current_page,
-        pageSize: this.pagination.per_page,
         keyword: this.keyword,
         sortField: this.sortField,
-        sortDirection: this.sortDirection
+        sortDirection: this.sortDirection,
+        locale: this.$i18n.locale,
+        paginated: true,
       };
 
       this.loading = true;
@@ -50,7 +56,10 @@ export default {
     save() {
       const url = this.form.id ? `${this.url}/${this.form.id}` : this.url;
       const method = this.form.id ? 'PUT' : 'POST';
-      const data = this.form;
+      let data = this.form;
+      data.attachment = this.attachment;
+      data.attachments = this.attachments;
+      data.locale = this.$i18n.locale;
 
       this.loading = true;
 
@@ -94,6 +103,12 @@ export default {
 
     openForm(data) {
       this.form = JSON.parse(JSON.stringify(data));
+
+      if (this.form.attachments) {
+        this.attachments = JSON.parse(JSON.stringify(this.form.attachments));
+        this.attachment = JSON.parse(JSON.stringify(this.form.attachments[0]));
+      }
+
       this.showForm = true;
     },
 
@@ -125,8 +140,8 @@ export default {
     refreshData() {
       this.pagination.current_page = 1;
       this.keyword = ''
-      this.sort = ''
-      this.order = ''
+      this.sortField = ''
+      this.sortDirection = ''
       this.getData()
     },
 
@@ -135,6 +150,55 @@ export default {
 			this.pagination.current_page = 1
 			this.getData()
     },
+
+    upload(multiple = false) {
+      let el = document.createElement('input');
+      el.type = 'file';
+
+      el.addEventListener('change', (event) => {
+        let formData = new FormData();
+        formData.append('file', event.target.files[0]);
+        this.$axios.$post('/api/upload', formData, {
+          headers: { 'Content-Type': 'application/form-data' },
+          onUploadProgress: progressEvent => {
+						this.uploadProgress = Math.round(
+							(progressEvent.loaded * 100) / progressEvent.total
+            );
+            this.showUploadProgress = true
+					}
+        }).then(response => {
+          if (multiple) {
+            this.attachments.push(response);
+          } else {
+            this.attachment = response;
+          }
+
+          console.log(this.attachment)
+        }).catch(e => {
+          let message = 'Unhandled error';
+
+          if (e.response.status == 413) {
+            message = 'File too large';
+          }
+
+          if (e.response.status == 422 || e.response.status == 500) {
+            message = e.response.data.message;
+          }
+
+          if (e.response.status == 422) {
+            message += e.response.data.errors.file[0]
+          }
+
+          this.$message({ message, type: 'error', })
+        }).finally(() => {
+          this.uploadProgress = 0;
+          this.showUploadProgress = false;
+				});
+      });
+
+      el.click();
+      el.remove();
+    }
 
   },
 

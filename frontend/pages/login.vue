@@ -1,5 +1,5 @@
 <template>
-	<el-card style="width: 350px; margin: 200px auto 0">
+	<el-card style="width: 350px; margin: 20px auto 0">
 		<div class="text-center mb-3">SILAKAN LOGIN</div>
 		<el-form>
 			<el-form-item>
@@ -28,31 +28,33 @@
 
 <script>
 export default {
-  layout: 'login',
-  data() {
-    return {
-      form: {
-        email: '',
-        password: ''
-      }
-    }
-  },
+	layout: "login",
+	data() {
+		return {
+			form: {
+				email: "",
+				password: ""
+			}
+		};
+	},
 
-  methods: {
-    login() {
-      this.$auth.loginWith('laravelSanctum', { data: this.form }).then(response => {
-        this.$router.push('/admin')
-      }).catch(e => {
-        this.$message({
-          message: e.response.data.message,
-          type: 'error',
-          showClose: true
-        })
-      })
-    }
-  }
-
-}
+	methods: {
+		login() {
+			this.$auth
+				.loginWith("laravelSanctum", { data: this.form })
+				.then(response => {
+					this.$router.push("/admin");
+				})
+				.catch(e => {
+					this.$message({
+						message: e.response.data.message,
+						type: "error",
+						showClose: true
+					});
+				});
+		}
+	}
+};
 </script>
 
 <style>

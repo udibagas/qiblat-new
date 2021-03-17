@@ -45,10 +45,17 @@ class ComponentController extends Controller
         return $component;
     }
 
-    public function getByName(string $name)
+    public function getByName(string $name, Request $request)
     {
-        $component = Component::where('name', $name)->first();
-        return $component ?: new Component(['name' => $name]);
+        $component = Component::firstOrCreate([
+            'name' => $name,
+            'locale' => $request->locale
+        ], [
+            'name' => $name,
+            'locale' => $request->locale
+        ]);
+
+        return $component->load(['items', 'attachments']);
     }
 
     /**

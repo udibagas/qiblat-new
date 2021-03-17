@@ -15,6 +15,7 @@ class CreateComponentsTable extends Migration
     {
         Schema::create('components', function (Blueprint $table) {
             $table->id();
+            $table->string('locale')->comment('component has to be defined in all locale');
             $table->string('name');
             $table->string('title')->nullable();
             $table->string('slug')->nullable();

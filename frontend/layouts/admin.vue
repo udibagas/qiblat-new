@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-header {
 	border-bottom: 1px solid #ddd;
 	background: #417b3e;

@@ -73,4 +73,9 @@ class LangController extends Controller
         $lang->delete();
         return ['message' => __('Data has been deleted')];
     }
+
+    public function locale(Request $request)
+    {
+        return Lang::where('locale', $request->locale)->pluck('text', 'key')->toArray();
+    }
 }

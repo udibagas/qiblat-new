@@ -148,11 +148,10 @@
 			<el-form label-position="left" label-width="100px">
 				<el-form-item label="Locale" :class="{ 'is-error': errors.locale }">
 					<el-select
-						v-model="filters.locale"
+						v-model="form.locale"
 						clearable
 						placeholder="Locale"
 						style="width: 100%"
-						@change="getData"
 					>
 						<el-option
 							v-for="locale in $i18n.locales"
